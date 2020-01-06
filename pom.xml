@@ -86,7 +86,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.8.7</version>
+			<version>2.9.10.1</version>
 		</dependency>
 		<!-- Map工具类 对标准java Collection的扩展 spring-core.jar需commons-collections.jar -->
 		<dependency>
