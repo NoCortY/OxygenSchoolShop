@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- jquery easyui -->
+<link rel="stylesheet" type="text/css"
+	href="../resources/js/superadmin/common/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../resources/js/superadmin/common/easyui/themes/icon.css">
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/jquery-1.4.4.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="../resources/js/shop/base/commonutil.js"></script>
+<link rel="stylesheet"
+	href="../resources/css/superadmin/common/tooltip-form-style.css"></link>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/errorhandle.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/main.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MyO2O管理系统</title>
+</head>
+<!-- 设置了class就可在进入页面加载layout -->
+<body class="easyui-layout">
+	<!-- 正上方panel -->
+	<div region="north" style="height: 50px; padding: 10px;" href="top"></div>
+	<!-- 正左边panel -->
+	<div region="west" title="菜单栏" split="true"
+		style="width: 280px; padding1: 1px; overflow: hidden;">
+		<div class="easyui-accordion" fit="true" border="false">
+			<!-- selected -->
+			<div title="系统管理" selected="true">
+				<ul>
+					<li><a
+						href="javascript:addTab('tabId_headTitleManagement','头条管理','headlinemanage');">头条管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_shopCategoryManagement','类别管理','shopcategorymanage');">类别管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_areaManagement','区域管理','areamanage');">区域管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_customerManagement','帐号管理','personinfomanage');">帐号管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_shopManagement','商铺管理','shopmanage');">商铺管理</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 正中间panel -->
+	<div region="center" title="功能区">
+		<div class="easyui-tabs" id="centerTab" fit="true" border="false">
+			<div title="欢迎页" style="padding: 20px; overflow: hidden;">
+				<div style="margin-top: 20px;">
+					<h3>你好，欢迎来到MyO2O管理系统</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 正下方panel -->
+	<div region="south" style="height: 50px;" align="center">
+		<label> 作者：xiangze<br /> 时间：2017-05-07
+		</label>
+	</div>
+</body>
+</html>

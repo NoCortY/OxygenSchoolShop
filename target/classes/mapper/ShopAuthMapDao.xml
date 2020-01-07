@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.myo2o.dao.ShopAuthMapDao">
+	<resultMap id="shopAuthResultMap" type="com.imooc.myo2o.entity.ShopAuthMap">
+		<id column="shop_auth_id" property="shopAuthId" />
+		<result column="employee_id" property="employeeId" />
+		<result column="shop_id" property="shopId" />
+		<result column="name" property="name" />
+		<result column="title" property="title" />
+		<result column="title_flag" property="titleFlag" />
+		<result column="create_time" property="createTime" />
+		<result column="last_edit_time" property="lastEditTime" />
+		<result column="enable_status" property="enableStatus" />
+		<association property="employee" column="employee_id"
+			javaType="com.imooc.myo2o.entity.PersonInfo">
+			<id column="user_id" property="userId" />
+			<result column="name" property="name" />
+			<result column="birthday" property="birthday" />
+			<result column="gender" property="gender" />
+			<result column="phone" property="phone" />
+			<result column="email" property="email" />
+			<result column="profile_img" property="profileImg" />
+			<result column="customer_flag" property="customerFlag" />
+			<result column="shop_owner_flag" property="shopOwnerFlag" />
+			<result column="admin_flag" property="adminFlag" />
+			<result column="create_time" property="createTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+			<result column="enable_status" property="enableStatus" />
+		</association>
+		<association property="shop" column="shop_id"
+			javaType="com.imooc.myo2o.entity.Shop">
+			<id column="shop_id" property="shopId" />
+			<result column="shop_name" property="shopName" />
+			<result column="shop_desc" property="shopDesc" />
+			<result column="shop_addr" property="shopAddr" />
+			<result column="phone" property="phone" />
+			<result column="shop_img" property="shopImg" />
+			<result column="longitude" property="longitude" />
+			<result column="latitude" property="latitude" />
+			<result column="priority" property="priority" />
+			<result column="create_time" property="createTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+			<result column="enable_status" property="enableStatus" />
+			<result column="advice" property="advice" />
+		</association>
+	</resultMap>
+	<select id="queryShopAuthMapListByShopId" resultMap="shopAuthResultMap">
+		SELECT
+		shop_auth_id,
+		employee_id,
+		shop_id,
+		name,
+		title,
+		title_flag,
+		create_time,
+		last_edit_time,
+		enable_status
+		FROM
+		tb_shop_auth_map
+		WHERE
+		shop_id =
+		#{shopId}
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryShopAuthCountByShopId" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_shop_auth_map
+		WHERE
+		shop_id = #{shopId}
+	</select>
+	<select id="queryShopAuthMapById" resultMap="shopAuthResultMap">
+		SELECT
+		shop_auth_id,
+		employee_id,
+		shop_id,
+		name,
+		title,
+		title_flag,
+		create_time,
+		last_edit_time,
+		enable_status
+		FROM
+		tb_shop_auth_map
+		WHERE
+		shop_auth_id =
+		#{shopAuthId};
+	</select>
+
+	<insert id="insertShopAuthMap">
+		INSERT INTO
+		tb_shop_auth_map(employee_id,shop_id,name,
+		title,title_flag,create_time,last_edit_time,enable_status)
+		VALUES
+		(#{employeeId},#{shopId},#{name},
+		#{title},#{titleFlag},#{createTime},#{lastEditTime},#{enableStatus})
+	</insert>
+	<update id="updateShopAuthMap" parameterType="com.imooc.myo2o.entity.ShopAuthMap"
+		keyProperty="shop_auth_id" useGeneratedKeys="true">
+		UPDATE tb_shop_auth_map
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="title != null">title=#{title},</if>
+			<if test="titleFlag != null">title_flag=#{titleFlag},</if>
+			<if test="enableStatus != null">enable_status=#{enableStatus},</if>
+			<if test="lastEditTime != null">last_edit_time=#{lastEditTime}</if>
+		</set>
+		WHERE shop_auth_id=#{shopAuthId}
+		AND shop_id=#{shopId}
+	</update>
+	<delete id="deleteShopAuthMap">
+		DELETE FROM
+		tb_shop_auth_map
+		WHERE
+		shop_auth_id =
+		#{shopAuthId}
+		AND shop_id=#{shopId}
+	</delete>
+
+
+
+</mapper>

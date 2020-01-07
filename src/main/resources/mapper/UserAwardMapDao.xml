@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.myo2o.dao.UserAwardMapDao">
+	<resultMap id="userAwardResultMap" type="com.imooc.myo2o.entity.UserAwardMap">
+		<id column="user_award_id" property="userAwardId" />
+		<result column="user_id" property="userId" />
+		<result column="award_id" property="awardId" />
+		<result column="shop_id" property="shopId" />
+		<result column="user_name" property="userName" />
+		<result column="award_name" property="awardName" />
+		<result column="expire_time" property="expireTime" />
+		<result column="create_time" property="createTime" />
+		<result column="used_status" property="usedStatus" />
+		<result column="point" property="point" />
+		<association property="user" column="user_id"
+			javaType="com.imooc.myo2o.entity.PersonInfo">
+			<id column="user_id" property="userId" />
+			<result column="name" property="name" />
+			<result column="birthday" property="birthday" />
+			<result column="gender" property="gender" />
+			<result column="phone" property="phone" />
+			<result column="email" property="email" />
+			<result column="profile_img" property="profileImg" />
+			<result column="customer_flag" property="customerFlag" />
+			<result column="shop_owner_flag" property="shopOwnerFlag" />
+			<result column="admin_flag" property="adminFlag" />
+			<result column="create_time" property="createTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+			<result column="enable_status" property="enableStatus" />
+		</association>
+		<association property="award" column="award_id"
+			javaType="com.imooc.myo2o.entity.Award">
+			<id column="award_id" property="awardId" />
+			<result column="award_name" property="awardName" />
+			<result column="award_desc" property="awardDesc" />
+			<result column="award_img" property="awardImg" />
+			<result column="point" property="point" />
+			<result column="priority" property="priority" />
+			<result column="create_time" property="createTime" />
+			<result column="expire_time" property="expireTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+			<result column="enable_status" property="enableStatus" />
+			<result column="shop_id" property="shopId" />
+		</association>
+		<association property="shop" column="shop_id"
+			javaType="com.imooc.myo2o.entity.Shop">
+			<id column="shop_id" property="shopId" />
+			<result column="shop_name" property="shopName" />
+			<result column="shop_desc" property="shopDesc" />
+			<result column="shop_addr" property="shopAddr" />
+			<result column="phone" property="phone" />
+			<result column="shop_img" property="shopImg" />
+			<result column="longitude" property="longitude" />
+			<result column="latitude" property="latitude" />
+			<result column="priority" property="priority" />
+			<result column="create_time" property="createTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+			<result column="enable_status" property="enableStatus" />
+			<result column="advice" property="advice" />
+		</association>
+	</resultMap>
+	<select id="queryUserAwardMapList" resultMap="userAwardResultMap">
+		SELECT
+		uam.user_award_id,
+		uam.user_id,
+		uam.award_id,
+		uam.shop_id,
+		uam.user_name,
+		uam.award_name,
+		uam.expire_time,
+		uam.create_time,
+		uam.used_status,
+		uam.point,
+		s.shop_name
+		FROM
+		tb_user_award_map uam
+		LEFT
+		JOIN
+		tb_shop s
+		ON
+		uam.shop_id =
+		s.shop_id
+		<where>
+			<if test="userAwardCondition.userId!=null">
+				and uam.user_id = #{userAwardCondition.userId}
+			</if>
+			<if test="userAwardCondition.shopId!=null">
+				and uam.shop_id = #{userAwardCondition.shopId}
+			</if>
+			<!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是 
+				'%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
+			<if test="userAwardCondition.userName!=null">
+				and uam.user_name like '%${userAwardCondition.userName}%'
+			</if>
+			<if test="userAwardCondition.awardName!=null">
+				and uam.award_name like
+				'%${userAwardCondition.awardName}%'
+			</if>
+			<if test="userAwardCondition.expireTime!=null">
+				and uam.expire_time > #{userAwardCondition.expireTime}
+			</if>
+			<if test="userAwardCondition.usedStatus!=null">
+				and uam.used_status = #{userAwardCondition.usedStatus}
+			</if>
+		</where>
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryUserAwardMapCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_user_award_map
+		<where>
+			<if test="userAwardCondition.userId!=null">
+				and user_id = #{userAwardCondition.userId}
+			</if>
+			<if test="userAwardCondition.shopId!=null">
+				and shop_id = #{userAwardCondition.shopId}
+			</if>
+			<!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是 
+				'%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
+			<if test="userAwardCondition.userName!=null">
+				and user_name like '%${userAwardCondition.userName}%'
+			</if>
+			<if test="userAwardCondition.awardName!=null">
+				and award_name like '%${userAwardCondition.awardName}%'
+			</if>
+			<if test="userAwardCondition.expireTime!=null">
+				and expire_time > #{userAwardCondition.expireTime}
+			</if>
+			<if test="userAwardCondition.usedStatus!=null">
+				and used_status = #{userAwardCondition.usedStatus}
+			</if>
+		</where>
+	</select>
+	<select id="queryUserAwardMapById" resultMap="userAwardResultMap">
+		SELECT
+		uam.user_award_id,
+		uam.user_id,
+		uam.award_id,
+		uam.shop_id,
+		uam.user_name,
+		uam.award_name,
+		uam.expire_time,
+		uam.create_time,
+		uam.used_status,
+		uam.point,
+		s.shop_name
+		FROM
+		tb_user_award_map uam
+		LEFT
+		JOIN
+		tb_shop s
+		ON
+		uam.shop_id =
+		s.shop_id
+		WHERE
+		user_award_id =
+		#{userAwardId}
+	</select>
+	<insert id="insertUserAwardMap" parameterType="com.imooc.myo2o.entity.UserAwardMap"
+		useGeneratedKeys="true" keyProperty="userAwardId" keyColumn="user_award_id">
+		INSERT
+		INTO
+		tb_user_award_map(user_id,award_id,shop_id,
+		user_name,award_name,expire_time,create_time,used_status,point)
+		VALUES
+		(#{userId},#{awardId},#{shopId},
+		#{userName},#{awardName},#{expireTime},#{createTime},#{usedStatus},#{point})
+	</insert>
+	<update id="updateUserAwardMap" parameterType="com.imooc.myo2o.entity.UserAwardMap"
+		useGeneratedKeys="true" keyProperty="userAwardId" keyColumn="user_award_id">
+		UPDATE
+		tb_user_award_map
+		SET
+		used_status = #{usedStatus}
+		WHERE
+		user_award_id =
+		#{userAwardId}
+		AND user_id = #{userId}
+	</update>
+</mapper>

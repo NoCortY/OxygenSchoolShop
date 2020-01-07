@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* CSS Document */
+/*-----------------------------------
+
+ * FileName :         info_content.css
+ * Description :      info_content
+ * Version :          2011-3-10
+ * Author :           chenyao
+ 
+==STRUCTURE==========================
+
+ * Number of columns : 1 Columns
+ * Page Width : 100%
+ * Other Width : 100%
+
+-----------------------------------*/
+
+/*==Search info Of Styles=============*/
+.w800{width:800px; margin:0; padding:0px}
+.left-con{width:550px; float:left;}
+.r-con{width:240px; float:left; margin-left:10px !important; margin-left:5px;}
+
+.con-info .imgbox{float:left; width:180px; height:120px; overflow:hidden; margin-right:15px !important; margin-right:8px; margin-bottom:10px;}
+.con-info .left{width:355px;}
+
+.con-info2 .blue4{margin-top:10px; padding-right:10px;}
+.ollist{padding:0px 10px;}
+.ollist li{list-style-position:inside;list-style-type:decimal; text-align:left; padding-bottom:2px; border-bottom:1px #999 dashed; margin-bottom:8px;}
+
+.con-info3{border:1px solid #04a7c6; margin-top:10px;}
+.tatit-info{background:url(../images/main_20.jpg) repeat-x; height:27px; color:#fff; overflow:hidden}
+  .tatit-info h4{float:left; padding:6px 0 0 10px;}
+  .tatit-info .white{margin-top:6px; padding-right:10px;}

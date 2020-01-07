@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.myo2o.dao.PersonInfoDao">
+	<select id="queryPersonInfoList" resultType="com.imooc.myo2o.entity.PersonInfo">
+		SELECT
+		user_id,
+		name,
+		birthday,
+		gender,
+		phone,
+		email,
+		profile_img,
+		customer_flag,
+		shop_owner_flag,
+		admin_flag,
+		create_time,
+		last_edit_time,
+		enable_status
+		FROM
+		tb_person_info
+		<where>
+			<if test="personInfoCondition.customerFlag != null">
+				and customer_flag = #{personInfoCondition.customerFlag}
+			</if>
+			<if test="personInfoCondition.shopOwnerFlag != null">
+				and shop_owner_flag =
+				#{personInfoCondition.shopOwnerFlag}
+			</if>
+			<if test="personInfoCondition.adminFlag != null">
+				and admin_flag = #{personInfoCondition.adminFlag}
+			</if>
+			<!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是 
+				'%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
+			<if test="personInfoCondition.name != null">
+				and name like '%${personInfoCondition.name}%'
+			</if>
+			<if test="personInfoCondition.enableStatus != null">
+				and enable_status = #{personInfoCondition.enableStatus}
+			</if>
+		</where>
+		ORDER BY
+		create_time DESC
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryPersonInfoCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_person_info
+		<where>
+			<if test="personInfoCondition.customerFlag!=null">
+				and customer_flag = #{personInfoCondition.customerFlag}
+			</if>
+			<if test="personInfoCondition.shopOwnerFlag!=null">
+				and shop_owner_flag =
+				#{personInfoCondition.shopOwnerFlag}
+			</if>
+			<if test="personInfoCondition.adminFlag!=null">
+				and admin_flag = #{personInfoCondition.adminFlag}
+			</if>
+			<!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是 
+				'%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
+			<if test="personInfoCondition.name!=null">
+				and name like '%${personInfoCondition.name}%'
+			</if>
+			<if test="personInfoCondition.enableStatus!=null">
+				and enable_status = #{personInfoCondition.enableStatus}
+			</if>
+		</where>
+	</select>
+	<select id="queryPersonInfoById" resultType="com.imooc.myo2o.entity.PersonInfo"
+		parameterType="Long">
+		<!-- 具体的sql -->
+		SELECT
+		user_id,
+		name,
+		birthday,
+		gender,
+		phone,
+		email,
+		profile_img,
+		customer_flag,
+		shop_owner_flag,
+		admin_flag,
+		create_time,
+		last_edit_time,
+		enable_status
+		FROM
+		tb_person_info
+		WHERE
+		user_id = #{userId}
+	</select>
+	<insert id="insertPersonInfo" parameterType="com.imooc.myo2o.entity.PersonInfo"
+		useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
+		INSERT
+		INTO
+		tb_person_info(name,birthday,gender,phone,email,profile_img,customer_flag,shop_owner_flag,
+		admin_flag,create_time,last_edit_time,enable_status)
+		VALUES
+		(#{name},#{birthday},#{gender},#{phone},#{email},#{profileImg},
+		#{customerFlag},#{shopOwnerFlag},#{adminFlag},
+		#{createTime},#{lastEditTime},#{enableStatus})
+	</insert>
+	<update id="updatePersonInfo" parameterType="com.imooc.myo2o.entity.PersonInfo">
+		update tb_person_info
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="birthday != null">birthday=#{birthday},</if>
+			<if test="gender != null">gender=#{gender},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="email != null">email=#{email},</if>
+			<if test="profileImg != null">profile_img=#{profileImg},</if>
+			<if test="customerFlag != null">customer_flag=#{customerFlag},</if>
+			<if test="shopOwnerFlag != null">shop_owner_flag=#{shopOwnerFlag},</if>
+			<if test="adminFlag != null">admin_flag=#{adminFlag},</if>
+			<if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
+			<if test="enableStatus != null">enable_status=#{enableStatus}</if>
+		</set>
+		where user_id=#{userId}
+	</update>
+	<delete id="deletePersonInfo">
+		DELETE FROM
+		tb_person_info
+		WHERE
+		user_id =
+		#{userId}
+	</delete>
+</mapper>
