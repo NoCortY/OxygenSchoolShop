@@ -1,0 +1,29 @@
+﻿.tooltipinputerr
+{
+	text-indent: 18px;
+	border: solid 2px #eee;
+	background: #ffff99 url(../images/exclamation.png) no-repeat right center;
+	}
+
+.tooltipinputok
+{
+	border: solid 2px green;
+	background: url(../images/accept.png) no-repeat right center;
+	}
+
+.tooltipshowpanel
+{
+	z-index: auto;
+	display: none;
+	position:absolute;
+	width: 276px;
+	height: 35px;
+	overflow: hidden;
+	text-indent: 5px;
+	line-height: 40px;
+	font-size: 12px;
+	font-family: Arial;
+	background: url(../images/tooltop.gif) no-repeat left top;
+	opacity:0.9;
+    filter: alpha(opacity=90);
+	}

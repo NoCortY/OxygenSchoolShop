@@ -1,0 +1,39 @@
+# maven ignore
+target/
+*.jar
+*.war
+*.zip
+*.tar
+*.tar.gz
+*.txt
+*.bak
+
+# class file
+*.class
+*.dll
+*.exe
+.studio
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# temp ignore
+logs/
+AClogs/
+LClogs/
+CClogs/
+*.doc
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+

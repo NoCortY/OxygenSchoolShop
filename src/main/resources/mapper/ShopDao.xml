@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.objectspace.schoolshop.dao.ShopDao">
+	<resultMap id="shopMap" type="cn.objectspace.schoolshop.entity.Shop">
+		<id column="shop_id" property="shopId" />
+		<result column="owner_id" property="ownerId" />
+		<result column="shop_category_id" property="shopCategoryId" />
+		<result column="shop_name" property="shopName" />
+		<result column="shop_desc" property="shopDesc" />
+		<result column="shop_addr" property="shopAddr" />
+		<result column="phone" property="phone" />
+		<result column="shop_img" property="shopImg" />
+		<result column="longitude" property="longitude" />
+		<result column="latitude" property="latitude" />
+		<result column="priority" property="priority" />
+		<result column="create_time" property="createTime" />
+		<result column="last_edit_time" property="lastEditTime" />
+		<result column="enable_status" property="enableStatus" />
+		<result column="advice" property="advice" />
+		<association property="area" column="area_id"
+			javaType="cn.objectspace.schoolshop.entity.Area">
+			<id column="area_id" property="areaId" />
+			<result column="area_name" property="areaName" />
+			<result column="area_desc" property="areaDesc" />
+			<result column="priority" property="priority" />
+			<result column="create_time" property="createTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+		</association>
+		<association property="shopCategory" column="shop_category_id"
+			javaType="cn.objectspace.schoolshop.entity.ShopCategory">
+			<id column="shop_category_id" property="shopCategoryId" />
+			<result column="shop_category_name" property="shopCategoryName" />
+			<result column="shop_category_desc" property="shopCategoryDesc" />
+			<result column="shop_category_img" property="shopCategoryImg" />
+			<result column="priority" property="priority" />
+			<result column="create_time" property="createTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+		</association>
+		<association property="parentCategory" column="parent_category_id"
+			javaType="cn.objectspace.schoolshop.entity.ShopCategory">
+			<id column="parent_category_id" property="shopCategoryId" />
+			<result column="shop_category_name" property="shopCategoryName" />
+			<result column="shop_category_desc" property="shopCategoryDesc" />
+			<result column="shop_category_img" property="shopCategoryImg" />
+			<result column="priority" property="priority" />
+			<result column="create_time" property="createTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+		</association>
+		<collection property="staffList" column="shop_id"
+			ofType="cn.objectspace.schoolshop.entity.ShopAuthMap">
+			<id column="shop_auth_id" property="shopAuthId" />
+			<result column="employee_id" property="employeeId" />
+			<result column="shop_id" property="shopId" />
+			<result column="name" property="name" />
+			<result column="title" property="title" />
+			<result column="title_flag" property="titleFlag" />
+			<result column="create_time" property="createTime" />
+			<result column="last_edit_time" property="lastEditTime" />
+			<result column="enable_status" property="enableStatus" />
+		</collection>
+	</resultMap>
+	<select id="queryShopList" resultMap="shopMap">
+		SELECT
+		shop_id,
+		owner_id,
+		area_id,
+		shop_category_id,
+		parent_category_id,
+		shop_name,
+		shop_desc,
+		shop_addr,
+		phone,
+		shop_img,
+		longitude,
+		latitude,
+		priority,
+		create_time,
+		last_edit_time,
+		enable_status,
+		advice
+		FROM
+		tb_shop
+		<where>
+			<if test="shopCondition.shopId!=null">
+				and shop_id = #{shopCondition.shopId}
+			</if>
+			<if
+				test="shopCondition.shopCategory!=null
+				 and shopCondition.shopCategory.shopCategoryId!=null">
+				and shop_category_id =
+				#{shopCondition.shopCategory.shopCategoryId}
+			</if>
+			<if
+				test="shopCondition.parentCategory!=null
+				 and shopCondition.parentCategory.shopCategoryId!=null">
+				and parent_category_id =
+				#{shopCondition.parentCategory.shopCategoryId}
+			</if>
+			<if
+				test="shopCondition.area!=null
+				 and shopCondition.area.areaId!=null">
+				and area_id =
+				#{shopCondition.area.areaId}
+			</if>
+			<!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是 
+				'%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
+			<if test="shopCondition.shopName!=null">
+				and shop_name like '%${shopCondition.shopName}%'
+			</if>
+			<if test="shopCondition.enableStatus!=null">
+				and enable_status = #{shopCondition.enableStatus}
+			</if>
+		</where>
+		ORDER BY
+		priority DESC
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryShopCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_shop
+		<where>
+			<if test="shopCondition.shopId!=null">
+				and shop_id = #{shopCondition.shopId}
+			</if>
+			<if
+				test="shopCondition.shopCategory!=null
+				 and shopCondition.shopCategory.shopCategoryId!=null">
+				and shop_category_id =
+				#{shopCondition.shopCategory.shopCategoryId}
+			</if>
+			<if
+				test="shopCondition.parentCategory!=null
+				 and shopCondition.parentCategory.shopCategoryId!=null">
+				and parent_category_id =
+				#{shopCondition.parentCategory.shopCategoryId}
+			</if>
+			<if
+				test="shopCondition.area!=null
+				 and shopCondition.area.areaId!=null">
+				and area_id =
+				#{shopCondition.area.areaId}
+			</if>
+			<!-- 写like语句的时候 一般都会写成 like '% %' 在mybatis里面写就是应该是 like '%${name} %' 而不是 
+				'%#{name} %' ${name} 是不带单引号的，而#{name} 是带单引号的 -->
+			<if test="shopCondition.shopName!=null">
+				and shop_name like '%${shopCondition.shopName}%'
+			</if>
+			<if test="shopCondition.enableStatus!=null">
+				and enable_status = #{shopCondition.enableStatus}
+			</if>
+		</where>
+	</select>
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<select id="queryByEmployeeId" resultMap="shopMap"
+		parameterType="Long">
+		<!-- 具体的sql -->
+		SELECT
+		s.shop_id,
+		s.shop_name,
+		s.shop_desc,
+		s.phone,
+		s.shop_img,
+		s.longitude,
+		s.latitude,
+		s.priority,
+		s.create_time,
+		s.last_edit_time,
+		s.enable_status,
+		s.advice,
+		p.employee_id,
+		p.name
+		FROM
+		tb_shop s
+		LEFT JOIN
+		tb_shop_auth_map
+		p ON s.shop_id =
+		p.shop_id
+		WHERE
+		p.employee_id =
+		#{employeeId}
+	</select>
+	<select id="queryByShopId" resultMap="shopMap" parameterType="Long">
+		<!-- 具体的sql -->
+		SELECT
+		shop_id,
+		owner_id,
+		area_id,
+		shop_category_id,
+		parent_category_id,
+		shop_name,
+		shop_desc,
+		shop_addr,
+		phone,
+		shop_img,
+		longitude,
+		latitude,
+		priority,
+		create_time,
+		last_edit_time,
+		enable_status,
+		advice
+		FROM
+		tb_shop
+		WHERE
+		shop_id = #{shopId}
+	</select>
+	<insert id="insertShop" useGeneratedKeys="true" keyProperty="shopId"
+		keyColumn="shop_id">
+		<!-- 具体的sql -->
+		INSERT INTO
+		tb_shop(owner_id,area_id,shop_category_id,parent_category_id,
+		shop_name,shop_desc,shop_addr,phone,shop_img,
+		longitude,latitude,create_time,last_edit_time,
+		enable_status,advice)
+		VALUES
+		(#{ownerId},#{area.areaId},#{shopCategory.shopCategoryId},#{parentCategory.shopCategoryId},
+		#{shopName},#{shopDesc},#{shopAddr},#{phone},#{shopImg},
+		#{longitude},#{latitude},#{createTime},#{lastEditTime},
+		#{enableStatus},#{advice})
+	</insert>
+	<update id="updateShop" parameterType="cn.objectspace.schoolshop.entity.Shop">
+		update tb_shop
+		<set>
+			<if test="shopName != null">shop_name=#{shopName},</if>
+			<if test="shopDesc != null">shop_desc=#{shopDesc},</if>
+			<if test="shopAddr != null">shop_addr=#{shopAddr},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="shopImg != null">shop_img=#{shopImg},</if>
+			<if test="longitude != null">longitude=#{longitude},</if>
+			<if test="latitude != null">latitude=#{latitude},</if>
+			<if test="priority != null">priority=#{priority},</if>
+			<if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
+			<if test="enableStatus != null">enable_status=#{enableStatus},</if>
+			<if test="advice != null">advice=#{advice},</if>
+			<if test="area != null">area_id=#{area.areaId},</if>
+			<if test="shopCategory != null">shop_category_id=#{shopCategory.shopCategoryId},</if>
+			<if test="parentCategory != null">parent_category_id=#{parentCategory.shopCategoryId}</if>
+		</set>
+		where shop_id=#{shopId}
+	</update>
+	<delete id="deleteShopByName">
+		<!-- 具体的sql -->
+		DELETE FROM
+		tb_shop
+		WHERE
+		shop_name = #{shopName}
+	</delete>
+
+</mapper>
