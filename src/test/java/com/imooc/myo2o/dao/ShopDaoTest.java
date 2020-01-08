@@ -11,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.imooc.myo2o.BaseTest;
+import com.imooc.myo2o.dao.ShopDao;
 import com.imooc.myo2o.entity.Area;
 import com.imooc.myo2o.entity.Shop;
 import com.imooc.myo2o.entity.ShopCategory;

@@ -74,7 +74,8 @@ public class ShopServiceImpl implements ShopService {
 			return new ShopExecution(ShopStateEnum.NULL_SHOP_INFO);
 		}
 		try {
-			shop.setEnableStatus(0);
+			//修改状态为审核中
+			shop.setEnableStatus(2);
 			shop.setCreateTime(new Date());
 			shop.setLastEditTime(new Date());
 			if (shop.getShopCategory() != null) {

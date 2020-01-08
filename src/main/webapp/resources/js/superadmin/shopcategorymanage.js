@@ -181,6 +181,7 @@ function shopCategoryManagementAdd() {
 		}
 	};
 	$("#shopCategoryFormAdd").ajaxSubmit(options);
+	closeDialog_add();
 }
 // 用户添加页面数据重置操作
 function shopCategoryManagementAddReset() {
@@ -247,10 +248,15 @@ function shopCategoryManagementEdit() {
 		return;
 	}
 	var shopCategory = {};
+	var thumbnailChange = false;
 	shopCategory.shopCategoryId = $(
 			"#shopCategoryManagementEdit_shopCategoryId").val();
 	shopCategory.shopCategoryName = encodeURIComponent($(
 			"#shopCategoryManagementEdit_shopCategoryName").val());
+	var pic = $("#shopCategoryManagementEdit_shopCategoryImg").val();
+	if(pic!=null){
+		thumbnailChange=true;
+	}
 	shopCategory.shopCategoryDesc = encodeURIComponent($(
 			"#shopCategoryManagementEdit_shopCategoryDesc").val());
 	shopCategory.parentId = $("#shopCategoryManagementEdit_parentId").val();
@@ -258,19 +264,24 @@ function shopCategoryManagementEdit() {
 	var options = {
 		type : 'post',
 		data : {
-			shopCategoryStr : JSON.stringify(shopCategory)
+			shopCategoryStr : JSON.stringify(shopCategory),
+			thumbnailChange :thumbnailChange
 		},
 		url : 'modifyshopcategory',// 请求的action路径
 		error : function() {// 请求失败处理函数
 			alert('请求失败');
 		},
-		success : function() {
-			var messgage = "修改成功!";
+		success : function(data) {
+			var message = "修改成功!";				
+			if(data.success===false){
+				message = "修改失败";
+			}
 			listShopCategoryManagementInfo();
-			$("#shopCategoryManagementEdit_message").html(messgage);
+			$("#shopCategoryManagementEdit_message").html(message);
 		}
 	};
 	$("#shopCategoryFormEdit").ajaxSubmit(options);
+	closeDialog_edit();
 }
 
 /** --------------执行删除操作------------------* */
@@ -298,9 +309,14 @@ function changeStatus(url) {
 		error : function() {// 请求失败处理函数
 			alert('请求失败');
 		},
-		success : function() {
-			alert("操作成功");
-			listShopCategoryManagementInfo();
+		success : function(data) {
+			if(data.success===true){
+				alert("操作成功");
+				listShopCategoryManagementInfo();
+			}else{
+				alert("操作失败");
+				listShopCategoryManagementInfo();
+			}
 		}
 	});
 }

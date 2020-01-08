@@ -11,6 +11,7 @@ import com.imooc.myo2o.BaseTest;
 import com.imooc.myo2o.dto.ShopAuthMapExecution;
 import com.imooc.myo2o.entity.ShopAuthMap;
 import com.imooc.myo2o.enums.ShopAuthMapStateEnum;
+import com.imooc.myo2o.service.ShopAuthMapService;
 
 public class ShopAuthServiceTest extends BaseTest {
 	@Autowired

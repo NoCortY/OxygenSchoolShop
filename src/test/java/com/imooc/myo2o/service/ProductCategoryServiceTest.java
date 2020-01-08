@@ -15,6 +15,7 @@ import com.imooc.myo2o.BaseTest;
 import com.imooc.myo2o.dto.ProductCategoryExecution;
 import com.imooc.myo2o.entity.ProductCategory;
 import com.imooc.myo2o.enums.ProductCategoryStateEnum;
+import com.imooc.myo2o.service.ProductCategoryService;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductCategoryServiceTest extends BaseTest {

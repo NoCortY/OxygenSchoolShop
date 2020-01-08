@@ -374,6 +374,7 @@ function shopManagementEdit() {
 			.val());
 	shop.advice = '"'
 			+ encodeURIComponent($("#shopManagementEdit_advice").val()) + '"';
+	if(shop.advice==="")shop.advice="无";
 	$.ajax({
 		async : false,
 		cache : false,

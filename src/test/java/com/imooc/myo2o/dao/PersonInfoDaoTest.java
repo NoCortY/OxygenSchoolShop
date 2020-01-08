@@ -11,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.imooc.myo2o.BaseTest;
+import com.imooc.myo2o.dao.PersonInfoDao;
 import com.imooc.myo2o.entity.PersonInfo;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

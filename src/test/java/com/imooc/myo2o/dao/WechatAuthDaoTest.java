@@ -10,6 +10,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.imooc.myo2o.BaseTest;
+import com.imooc.myo2o.dao.WechatAuthDao;
 import com.imooc.myo2o.entity.WechatAuth;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

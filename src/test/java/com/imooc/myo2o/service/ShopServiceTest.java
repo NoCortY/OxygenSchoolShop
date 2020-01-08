@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.imooc.myo2o.BaseTest;
 import com.imooc.myo2o.dto.ShopExecution;
 import com.imooc.myo2o.entity.Shop;
+import com.imooc.myo2o.service.ShopService;
 
 public class ShopServiceTest extends BaseTest {
 	@Autowired

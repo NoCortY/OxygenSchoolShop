@@ -13,6 +13,8 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.imooc.myo2o.BaseTest;
+import com.imooc.myo2o.dao.ProductDao;
+import com.imooc.myo2o.dao.ProductImgDao;
 import com.imooc.myo2o.entity.Product;
 import com.imooc.myo2o.entity.ProductCategory;
 import com.imooc.myo2o.entity.ProductImg;

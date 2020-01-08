@@ -4,7 +4,7 @@ $(function() {
 
 	var isEdit = shopId ? true : false;
 
-	var shopInfoUrl = '/myo2o/shop/getshopbyid?shopId=1';
+	var shopInfoUrl = '/myo2o/shop/getshopbyid?shopId='+shopId;
 	// var shopInfoUrl = '/myo2o/shop/getshopbyid?shopId=' + shopId;
 	var initUrl = '/myo2o/shop/getshopinitinfo';
 	var editShopUrl = '/myo2o/shop/registershop';
@@ -105,7 +105,7 @@ $(function() {
 					if (isEdit){
 						$('#captcha_img').click();
 					} else{
-						window.location.href="/shop/shoplist";
+						window.location.href="/myo2o/shop/shoplist";
 					}
 				} else {
 					$.toast('提交失败！');

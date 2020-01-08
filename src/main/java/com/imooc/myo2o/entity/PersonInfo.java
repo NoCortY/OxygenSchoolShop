@@ -2,10 +2,13 @@ package com.imooc.myo2o.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PersonInfo {
 
 	private Long userId;
 	private String name;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date birthday;
 	private String gender;
 	private String phone;
@@ -14,7 +17,9 @@ public class PersonInfo {
 	private Integer customerFlag;
 	private Integer shopOwnerFlag;
 	private Integer adminFlag;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date lastEditTime;
 	private Integer enableStatus;
 
