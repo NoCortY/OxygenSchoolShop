@@ -43,11 +43,11 @@
 		</association>
 		<collection property="productImgList" column="product_id"
 			ofType="cn.objectspace.schoolshop.entity.ProductImg">
-			<id column="product_img_id" property="productImgId" />
-			<result column="img_addr" property="imgAddr" />
-			<result column="img_desc" property="imgDesc" />
-			<result column="priority" property="priority" />
-			<result column="create_time" property="createTime" />
+			<id column="desc_product_img_id" property="productImgId" />
+			<result column="desc_img_addr" property="imgAddr" />
+			<result column="desc_img_desc" property="imgDesc" />
+			<result column="desc_img_priority" property="priority" />
+			<result column="desc_img_create_time" property="createTime" />
 			<result column="product_id" property="productId" />
 		</collection>
 	</resultMap>
@@ -135,11 +135,11 @@
 		p.point,
 		p.product_category_id,
 		p.shop_id,
-		pm.product_img_id,
-		pm.img_addr,
-		pm.img_desc,
-		pm.priority,
-		pm.create_time
+		pm.product_img_id as desc_product_img_id,
+		pm.img_addr as desc_img_addr,
+		pm.img_desc as desc_img_desc,
+		pm.priority as desc_img_priority,
+		pm.create_time as desc_img_create_time
 		FROM
 		tb_product p
 		LEFT JOIN

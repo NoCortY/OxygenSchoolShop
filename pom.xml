@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.objectspace</groupId>
-	<artifactId>myo2o</artifactId>
+	<artifactId>schoolshop</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>myo2o Maven Webapp</name>
@@ -193,7 +193,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>myo2o</finalName>
+		<finalName>schoolshop</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

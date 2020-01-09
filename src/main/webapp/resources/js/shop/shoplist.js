@@ -28,7 +28,7 @@ $(function () {
 	}
 
 	function goShop(status, id) {
-		if (status != 0 && status != -1) {
+		if (status==1) {
 			return '<a href="/schoolshop/shop/shopmanage?shopId='+ id +'">进入</a>';
 		} else {
 			return '';
@@ -36,9 +36,9 @@ $(function () {
 	}
 
 	function shopStatus(status) {
-		if (status == 0) {
+		if (status == 2) {
 			return '审核中';
-		} else if (status == -1) {
+		} else if (status == 0) {
 			return '店铺非法';
 		} else {
 			return '审核通过';

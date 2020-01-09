@@ -57,7 +57,7 @@ $(function() {
 		var product = {};
 		product.productId = id;
 		product.enableStatus = enableStatus;
-		$.confirm('确定么?', function() {
+		$.confirm('确定操作吗?', function() {
 			$.ajax({
 				url : deleteUrl,
 				type : 'POST',

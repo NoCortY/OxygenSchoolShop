@@ -84,6 +84,13 @@ public class ShopManagementController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		if (shopId != null && shopId > -1) {
 			Shop shop = shopService.getByShopId(shopId);
+			if(shop.getEnableStatus()!=1) {
+				//2020.1.9
+				//bug:如果不验证这个，任何人都可以通过url修改店铺
+				modelMap.put("success", false);
+				modelMap.put("errMsg", "当前店铺未通过审核暂无法修改");
+				return modelMap;
+			}
 			shop.getShopCategory().setShopCategoryName(
 					shopCategoryService.getShopCategoryById(
 							shop.getShopCategory().getShopCategoryId())
@@ -93,7 +100,7 @@ public class ShopManagementController {
 							shop.getParentCategory().getShopCategoryId())
 							.getShopCategoryName());
 			modelMap.put("shop", shop);
-			request.getSession().setAttribute("currentShop", "shop");
+			request.getSession().setAttribute("currentShop", shop);
 			List<Area> areaList = new ArrayList<Area>();
 			try {
 				areaList = areaService.getAreaList();

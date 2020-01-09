@@ -299,9 +299,12 @@ function optFormater(value, row, index) {
 	var shopId = row.shopId;
 	var priority = row.priority;
 	var enableStatus = row.enableStatus;
-	var advice = "";
+	var advice = "无";
 	if (row.advice != undefined) {
 		advice = row.advice;
+	}
+	if(row.advice==undefined||row.advice==""){
+		advice="无";
 	}
 	var params = shopId + "," + priority + ",'" + enableStatus + "','" + advice
 			+ "','" + shopName + "'," + shopCategoryId;
@@ -372,9 +375,9 @@ function shopManagementEdit() {
 	shop.priority = encodeURIComponent($("#shopManagementEdit_priority").val());
 	shop.enableStatus = encodeURIComponent($("#shopManagementEdit_enableStatus")
 			.val());
-	shop.advice = '"'
-			+ encodeURIComponent($("#shopManagementEdit_advice").val()) + '"';
-	if(shop.advice==="")shop.advice="无";
+	shop.advice = encodeURIComponent($("#shopManagementEdit_advice").val());
+	if(shop.advice==""||shop.advice.length==0) 
+		shop.advice="无";
 	$.ajax({
 		async : false,
 		cache : false,

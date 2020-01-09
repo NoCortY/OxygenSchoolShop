@@ -103,8 +103,8 @@
 					directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log"
 					suffix=".txt" />
 
-				<Context docBase="myo2o" path="/myo2o" reloadable="true"
-					source="org.eclipse.jst.jee.server:myo2o" />
+				<Context docBase="SchoolShop" path="/SchoolShop" reloadable="true"
+					source="org.eclipse.jst.jee.server:SchoolShop" />
 				<Context docBase="E:\projectdev\image\upload" path="/upload" />
 			</Host>
 
